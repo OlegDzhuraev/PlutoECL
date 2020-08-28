@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
     public abstract class Launcher : MonoBehaviour
     {

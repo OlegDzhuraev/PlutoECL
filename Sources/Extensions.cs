@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
 	public static class Extensions
 	{
-		/// <summary> Short version of gameObject.GetComponent Entity (); for MonoBehaviour connections to Ceres ECL. Can return null if object is not Entity.</summary>
+		/// <summary> Short version of gameObject.GetComponent Entity (); for MonoBehaviour connections to Pluto ECL. Can return null if object is not Entity.</summary>
 		public static Entity GetEntity(this GameObject gameObject) => gameObject.GetComponent<Entity>();
 
 		/// <summary> Returns Component of specified type. Not affects Unity default components because requires T derived from MonoBehaviour - only for game logics. </summary>

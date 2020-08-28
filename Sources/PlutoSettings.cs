@@ -1,23 +1,23 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
-    [CreateAssetMenu(fileName = "CeresSettings", menuName = "Ceres ECL/Settings Asset")]
-    public class CeresSettings : ScriptableObject
+    [CreateAssetMenu(fileName = "PlutoSettings", menuName = "Pluto ECL/Settings Asset")]
+    public class PlutoSettings : ScriptableObject
     {
-	    public static CeresSettings Instance
+	    public static PlutoSettings Instance
         {
 	        get
 	        {
 		        if (!instance)
-			        instance = Resources.Load("CeresSettings") as CeresSettings;
+			        instance = Resources.Load("PlutoSettings") as PlutoSettings;
 
 		        return instance;
 	        }
         }
         
-        static CeresSettings instance;
+        static PlutoSettings instance;
         
         public Type TagsEnum;
 

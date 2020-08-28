@@ -1,4 +1,4 @@
-﻿namespace CeresECL
+﻿namespace PlutoECL
 {
 	/// <summary> Derive from this class for your custom Events. Event same to Component, but will live only one frame. </summary>
 	public class Event

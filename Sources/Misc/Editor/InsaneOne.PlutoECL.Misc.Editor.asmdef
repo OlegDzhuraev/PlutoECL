@@ -1,9 +1,12 @@
 {
-    "name": "InsaneOne.CeresECL.Misc",
+    "name": "InsaneOne.PlutoECL.Misc.Editor",
     "references": [
-        "GUID:20f61b99a18cf83488884339898131ac"
+        "GUID:20f61b99a18cf83488884339898131ac",
+        "GUID:8a7bbcb7000134c49aceff828a615fea"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

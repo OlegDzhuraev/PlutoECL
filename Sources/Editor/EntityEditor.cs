@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
     [CustomEditor(typeof(Entity), true)]
     public class EntityEditor : Editor
@@ -64,8 +64,8 @@ namespace CeresECL
             {
                 var tagName = keyValuePair.Key.ToString();
                 
-                if (CeresSettings.Instance.TagsEnum != null)
-                    tagName = Enum.Parse(CeresSettings.Instance.TagsEnum, tagName).ToString();
+                if (PlutoSettings.Instance.TagsEnum != null)
+                    tagName = Enum.Parse(PlutoSettings.Instance.TagsEnum, tagName).ToString();
                 
                 GUILayout.Label(tagName + ", Count: " + keyValuePair.Value, EditorStyles.boldLabel);
             }

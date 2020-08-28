@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace CeresECL.Misc
+namespace PlutoECL.Misc
 {
     [CustomPropertyDrawer(typeof(RuntimeOnlyAttribute))]
     public class RuntimeOnlyAttributeDrawer : PropertyDrawer

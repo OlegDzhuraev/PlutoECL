@@ -6,31 +6,31 @@ using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
     public static class TemplatesGenerator
     {
-        [MenuItem ("Assets/Create/Ceres ECL/Component template", false, -199)]
+        [MenuItem ("Assets/Create/Pluto ECL/Component template", false, -199)]
         static void CreateComponentTemplate() => CreateAnyFromTemplate("Component");
         
-        [MenuItem ("Assets/Create/Ceres ECL/Init Logic template", false, -199)]
+        [MenuItem ("Assets/Create/Pluto ECL/Init Logic template", false, -199)]
         static void CreateInitLogicTemplate() => CreateAnyFromTemplate("InitLogic");
         
-        [MenuItem ("Assets/Create/Ceres ECL/Run Logic template", false, -199)]
+        [MenuItem ("Assets/Create/Pluto ECL/Run Logic template", false, -199)]
         static void CreateRunLogicTemplate() => CreateAnyFromTemplate("RunLogic");
 
-        [MenuItem ("Assets/Create/Ceres ECL/Event template", false, -199)]
+        [MenuItem ("Assets/Create/Pluto ECL/Event template", false, -199)]
         static void CreateEventTemplate() => CreateAnyFromTemplate("Event");
         
-        [MenuItem ("Assets/Create/Ceres ECL/Launcher template", false, -199)]
+        [MenuItem ("Assets/Create/Pluto ECL/Launcher template", false, -199)]
         static void CreateLauncherTemplate() => CreateAnyFromTemplate("GameLauncher"); 
         
-        [MenuItem ("Assets/Create/Ceres ECL/Scriptable Object template", false, -99)]
+        [MenuItem ("Assets/Create/Pluto ECL/Scriptable Object template", false, -99)]
         static void CreateScriptableObjectTemplate() => CreateAnyFromTemplate("ScriptableObject");
         
         static void CreateAnyFromTemplate(string templateName)
         {
-            var fileName = $"{GetSelectionPath()}/Ceres{templateName}.cs";
+            var fileName = $"{GetSelectionPath()}/Pluto{templateName}.cs";
             CreateAndRenameAsset(fileName, GetIcon(), name => CreateTemplateInternal(GetTemplateContent(templateName), name));
         }
 
@@ -42,7 +42,7 @@ namespace CeresECL
             var namespaceName = EditorSettings.projectGenerationRootNamespace.Trim();
             
             if (string.IsNullOrEmpty(EditorSettings.projectGenerationRootNamespace)) 
-                namespaceName = "CeresECL";
+                namespaceName = "PlutoECL";
             
             template = template.Replace("#NAMESPACE#", namespaceName);
             template = template.Replace("#SCRIPTNAME#", SanitizeClassName(Path.GetFileNameWithoutExtension(fileName)));
@@ -103,7 +103,7 @@ namespace CeresECL
         {
             var result = CreateFromTemplate(template, fileName);
             if (result != null) 
-                EditorUtility.DisplayDialog("Ceres ECL", result, "Close");
+                EditorUtility.DisplayDialog("Pluto ECL", result, "Close");
             
             return result;
         }
@@ -120,7 +120,7 @@ namespace CeresECL
         static string GetTemplateContent(string templateName)
         {
             var templates = new List<TextAsset>();
-            EditorHelpers.LoadAssetsToList(templates, "l: CeresTemplate");
+            EditorHelpers.LoadAssetsToList(templates, "l: PlutoTemplate");
 
             var template = templates.Find(t => t.name.Contains(templateName));
 

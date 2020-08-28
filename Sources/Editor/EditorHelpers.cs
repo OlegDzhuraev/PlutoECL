@@ -2,7 +2,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
     public static class EditorHelpers
     {

@@ -3,19 +3,19 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace CeresECL.Misc
+namespace PlutoECL.Misc
 {
     [InitializeOnLoad]
-    public class CeresHierarchy : MonoBehaviour
+    public class CustomHierarchy : MonoBehaviour
     {
-        static CeresHierarchy()
+        static CustomHierarchy()
         {
             EditorApplication.hierarchyWindowItemOnGUI += HandleHierarchyWindowItemOnGUI;
         }
         
         static void HandleHierarchyWindowItemOnGUI(int instanceID, Rect selectionRect)
         {
-            if (!CeresSettings.Instance || !CeresSettings.Instance.UseCustomHierarchy)
+            if (!PlutoSettings.Instance || !PlutoSettings.Instance.UseCustomHierarchy)
                 return;
             
             var gameObject = EditorUtility.InstanceIDToObject (instanceID) as GameObject;

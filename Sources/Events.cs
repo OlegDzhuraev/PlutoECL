@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CeresECL
+namespace PlutoECL
 {
     public sealed class Events
     {

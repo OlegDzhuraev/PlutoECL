@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CeresECL
+namespace PlutoECL
 {
     /// <summary> Derive from this class all of your game logic scripts.</summary>
     [RequireComponent(typeof(Entity))]

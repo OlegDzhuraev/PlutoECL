@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CeresECL
+namespace PlutoECL
 {
     public struct IntTag
     {

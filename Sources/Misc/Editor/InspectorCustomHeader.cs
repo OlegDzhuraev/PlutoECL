@@ -3,19 +3,19 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace CeresECL.Misc
+namespace PlutoECL.Misc
 {
     [InitializeOnLoad]
     public static class InspectorCustomHeader
     {
         static InspectorCustomHeader()
         {
-            Editor.finishedDefaultHeaderGUI += DrawCeresExtension;
+            Editor.finishedDefaultHeaderGUI += DrawExtension;
         }
 
-        static void DrawCeresExtension(Editor editor)
+        static void DrawExtension(Editor editor)
         {
-            if (!CeresSettings.Instance || !CeresSettings.Instance.UseCustomInspectorHeader)
+            if (!PlutoSettings.Instance || !PlutoSettings.Instance.UseCustomInspectorHeader)
                 return;
             
             if (editor.target is GameObject gameObject)
