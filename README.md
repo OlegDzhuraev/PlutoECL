@@ -2,7 +2,7 @@
 Pluto ECL is **experimental** implementation of Entity Component Logic architectural pattern in Unity. It is based on Ceres ECL ideas, but works fully on MonoBehaviours. Not so optimized as Ceres ECL, but much more comfortable to work with.
 
 <p align="center">
-    <img src="http://dzhuraev.com/CeresECL/CeresECLUnity1.png" width="364" height="385" alt="Ceres ECL">
+    <img src="http://dzhuraev.com/CeresECL/PlutoECLScr1.png" width="400" height="430" alt="Pluto ECL">
 </p>
 
 ### What is Entity Component Logic?
