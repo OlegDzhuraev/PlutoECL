@@ -1,5 +1,5 @@
-# CeresECL
-Ceres ECL is **experimental** implementation of Entity Component Logic architectural pattern in Unity. 
+# PlutoECL
+Pluto ECL is **experimental** implementation of Entity Component Logic architectural pattern in Unity. It is based on Ceres ECL ideas, but works fully on MonoBehaviours. Not so optimized as Ceres ECL, but much more comfortable to work with.
 
 <p align="center">
     <img src="http://dzhuraev.com/CeresECL/CeresECLUnity1.png" width="364" height="385" alt="Ceres ECL">
@@ -11,11 +11,14 @@ Difference from ECS is that there no Systems, which handles a lot of objects, bu
 But with ECL you obliged to separate logics from data.
 I really don't know is there exist any pattern like this, so I described it by my own. :)
 
-Problem of Unity-way scripting is that there only MonoBehaviour, which is not saves you from bad coding practices. Ceres ECL will keep you in track of following the pattern principles.
+Problem of Unity-way scripting is that there only MonoBehaviour, which is not saves you from bad coding practices. Pluto ECL will keep you in track of following the pattern principles.
 
 ### Why I should use it instead of Entity Component System?
 No reasons. ECS is cool. But if you're have problems with understanding ECS or it looks too complicated to you,
 Ceres ECL is simplier and looks more like usual Unity-way scripting, so you can use it.
+
+# Below partitions is obsolete and copied from Ceres ECL readme
+Will be updated in future.
 
 ## Overview
 There is ready classes Entity, Component, Logic, which you should use to create your own. More info and examples will be added soon.
