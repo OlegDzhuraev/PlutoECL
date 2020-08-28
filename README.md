@@ -17,31 +17,28 @@ Problem of Unity-way scripting is that there only MonoBehaviour, which is not sa
 No reasons. ECS is cool. But if you're have problems with understanding ECS or it looks too complicated to you,
 Pluto ECL is simplier and looks more like usual Unity-way scripting, so you can use it.
 
-# Below partitions is obsolete and copied from Ceres ECL readme
-Will be updated in future.
+## Below partitions is copied from Ceres ECL readme and not fully changed for Pluto ECL
+Will be updated siin.
 
 ## Overview
-There is ready classes Entity, Component, Logic, which you should use to create your own. More info and examples will be added soon.
-
 ### Entity
-**Entity** is **MonoBehaviour** script. It describes your object - contains all it **Components** and **Logics**. Looks like Unity component system, but all code is open-source.
+**Entity** is basic **MonoBehaviour** script (in this framework it is ExtendedBehaviour, but it is not necessarry now). It marks your object as something dynamic and includes it in gameplay run cycle. Also **Entity** is container for **Tags, Events** and some **useful methods**, which is described below.
 
 ```csharp
-// Spawning new Entity object using PlayerEntityBuilder and using instance of playerPrefab as Entity GameObject.
-var entity = Entity.Spawn<PlayerEntityBuilder>(playerPrefab);
+var entity = Entity.Spawn(playerPrefab);
 
 // Spawn empty game object as entity (no prefab needed).
-var emptyEntity = Entity.Spawn<PlayerEntityBuilder>();
+var emptyEntity = Entity.Spawn();
 ```
 
 ### Component
-Component is simple class, which only contains some data of your **Entity**. For example, **MoveComponent**, which contains **Speed** and **Direction** of movement. 
+Any derived from MonoBehaviour can be Component, if it contains **only data** of your **Entity**. For example, **MoveComponent**, which contains **Speed** and **Direction** of movement. 
 Should be no any logics code in this class.
 
 ```csharp
-using CeresECL;
+using PlutoECL;
 
-public class MoveComponent : Component
+public class MoveComponent : MonoBehaviour
 {
   public float Speed;
   public Vector3 Direction;
@@ -54,48 +51,34 @@ public class MoveComponent : Component
 For example, **MoveLogic** will move it using **MoveComponent** data. 
 And **InputLogic** will fill **MoveComponent Direction** field with player input.
 
+In actual version, to create logic, you should derive it from **ExtendedBehaviour**. Not the best solution, but for production it is best for me now.
 
 ```csharp
-using CeresECL;
+using PlutoECL;
 
-public class MoveLogic : Logic, IInitLogic, IRunLogic
+public class MoveLogic : ExtendedBehaviour
 {
   MoveComponent moveComponent;
 
-  void IInitLogic.Init()
+  protected override void Init()
   {
     moveComponent = Entity.Components.Get<MoveComponent>();
 
     moveComponent.Speed = 2f;
   }
 
-  void IRunLogic.Run()
+  protected override void Run()
   {
     Entity.transform.position += moveComponent.Direction * (moveComponent.Speed * Time.deltaTime);
   }
 }
 ```
 
-There is **IInitLogic** interface to implement initialization logic, similar to the **Start** Unity method.
+There is **Init** method to implement initialization logic, similar to the **Awake** Unity method.
 
-There also **IRunLogic** interface to implement run logic, similar to the **Update** Unity method.
+There also **Run** method to implement run logic, similar to the **Update** Unity method.
 
-### Builder
-You need to create your entities, filling it with Logics which will handle this entity behaviour. **Builder** is Init Logic realization, designed to setup your entity Logics.
-```csharp
-using CeresECL;
-
-public class PlayerEntityBuilder : Builder
-{
-  protected override void Build()
-  {
-    Entity.Logics.Add<InputLogic>();
-    Entity.Logics.Add<MoveLogic>();
-  }
-}
-```
-
-Builders is a only one place, where you allowed to create strong dependencies (Builders will know about all connected Logics). This is key differnce from ECS -- in ECS most of dependencies is placed in Launcher, which generate ECS World with all it's system. So there 1 ECS Launcher file vs N ECL Builder files. But in other there should be minimum dependencies amount.
+You also can use **PostInit**, it will be similar to the **Start** Unity method.
 
 ### Tags
 If you need to create new component, which will be simple mark object state, use **Tags** instead. **Entity.Tags** contains all tags, added to the entity. 
@@ -129,7 +112,7 @@ Entity.Tags.Remove(Tag.CustomTag);
 
 New tags version is a simple integer in code, so if you want see your Tags names from enum in Entity debug, you need specify your enum type in **CeresSettings** in ECL Launcher script:
 ```csharp
-CeresSettings.Instance.TagsEnum = typeof(Tag);
+PlutoSettings.Instance.TagsEnum = typeof(Tag);
 ```
 You can see it in **Example**.
 
@@ -139,7 +122,7 @@ Tags inspired by Pixeye Actors ECS tags. But possble that in my realisation this
 **Events** - same to the components, but live only 1 frame. So if something happens in your game, you can send event from one of Logics and other will catch it. Since event same to the component, it can contain any data. To create **Event**, create new class, derived from **Event**:
 
 ```csharp
-using CeresECL;
+using PlutoECL;
 
 class ColliderHitEvent : Event
 {
@@ -157,26 +140,7 @@ To send **Event**, do it like this:
 Entity.Events.Add(hitEvent);
 ```
 
-You can send events not only from Logics, but from any MonoBehaviours too, it can be useful for combining of default Unity-way coding and ECL.
-Note that **Logics** adding order can be important since **Event** live only one frame.
-
-You can subscribe to event type in **Logic** like this:
-```csharp
-using CeresECL;
-
-public class Bullet : Logic, IInitLogic
-{
-  void IInitLogic.Init()
-  {
-    Entity.Events.Subscribe<ColliderHitEvent>(OnHit);
-  }
-
-  void OnHit(ColliderHitEvent eventData)
-  {
-    // handle event data
-  }
-}
-```
+You can send events not from Logics and other MonoBehaviours too.
 
 Unsubscribe is the same:
 ```csharp
@@ -189,13 +153,13 @@ Current Events version is not finished and can be unstable, but all tests passed
 To make it all work, you need entry point, some classic **MonoBehaviour** script. To do this correct, create your new script, name it, for example, **MyLauncher**, and derive from Ceres **Launcher** class. Next, you need to override **StartAction** method and add there your init logic.
 
 ```csharp
-using Ceres.ECL;
+using PlutoECL;
 
 public class MyLauncher : Launcher
 {
     protected override void StartAction()
     {
-        Entity.Spawn<YourEntBuilder>();
+        Entity.Spawn();
     }
 }
 ```
@@ -203,55 +167,29 @@ public class MyLauncher : Launcher
 Base **Launcher** class handles all entities update, so there only 1 MonoBehaviour Update for **all** Entities Logics. For some unknown reasons, in Unity it increases game FPS. So do **not** make **Update** method in your Launcher, it can override Ceres one. And, yes, you don't need it in any case.
 
 ### Templates
-You can create each of these classes using templates. Click **RMB** in **Project Window** and open submenu **Ceres ECL**. There will be all actual templates. 
+You can create each of these classes using templates. Click **RMB** in **Project Window** and open submenu **Pluto ECL**. There will be all actual templates. 
 
-It will generate script in root namespace, which you can change in **Editor Settings -> Editor -> C# Project Generation**. Otherwise it will be generated in **CeresECL** namespace.
+It will generate script in root namespace, which you can change in **Editor Settings -> Editor -> C# Project Generation**. Otherwise it will be generated in **PlutoECL** namespace.
 
 For template generator idea thanks to LeoECS, some used things came from its code.
 
-### Dependency Injection
-Ceres ECL has DI implementation for Logics. So you can inject any data to all of yours Entity Logics:
-
-```csharp
-Entity.Logics.Inject(data);
-```
-
-Your Logic should have field with same to **data** type, for example, if **data** type is **Data**, your Logic should look like this:
-
-```csharp
-using CeresECL;
-
-public class TestLogic : Logic, IRunLogic
-{
-  Data injectedData;
-
-  void IRunLogic.Run()
-  {
-    // Do smth ?
-  }
-}
-```
-
-Dependency Injection idea came from LeoECS, you can find a link to its repo at the end of readme.
-
 ## Debug
-To check state of your Entity, select its GameObject on scene and you will see all Tags, Components and Logics, added to the entity with their parameters:
-<p align="center">
-    <img src="http://dzhuraev.com/CeresECL/CeresECLUnity1.png" width="364" height="385" alt="Ceres ECL">
-</p>
+To check state of your Entity, select its GameObject on scene and you will see all Tags, Components and Logics, added to the entity with their parameters. In your Components you can see all parameters.
+
+You also can use **RuntimeOnly** and **ReadOnly** attributes on your fields, it help to keep these fields from unwanted editing.
 
 ## More FAQ
 ### Can I edit variables or entities from Inspector
 **No**. All changes should be done from code - this is place for all your game logic. If you need add some data - load it from **Scritable Object** files. 
 
-### Is Ceres ECL production-ready
+### Is Pluto ECL production-ready
 No, until there will be at least one release on GitHub. Currently it is fully experimental non-commercial project. But you can use it on your risk, all features already should work.
 
-### Why it is named Ceres?
-Idk. I like space. And I had no ideas how to name this project. So, Ceres.
+### Why it is named Pluto?
+Mine previous ECL implementation was named Ceres just because I had no ideas how to name it and I like space. This is my another vision of this pattern, but now it not lightweight as Ceres. So, Pluto. :D
 
 ## Examples
-Check Example folder from repository, it contains simple Ceres ECL usage example. 
+Example will be added as separated repo soon.
 
 Links to games examples on GitHub will be added when these examples will be created. :)
 
