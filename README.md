@@ -17,9 +17,6 @@ Problem of Unity-way scripting is that there only MonoBehaviour, which is not sa
 No reasons. ECS is cool. But if you're have problems with understanding ECS or it looks too complicated to you,
 Pluto ECL is simplier and looks more like usual Unity-way scripting, so you can use it.
 
-## Below partitions is copied from Ceres ECL readme and not fully changed for Pluto ECL
-Will be updated siin.
-
 ## Overview
 ### Entity
 **Entity** is basic **MonoBehaviour** script (in this framework it is ExtendedBehaviour, but it is not necessary now). It marks your object as something dynamic and includes it in gameplay run cycle. Also **Entity** is container for **Tags, Events** and some **useful methods**, which is described below.
@@ -46,12 +43,12 @@ public class MoveComponent : MonoBehaviour
 ```
 
 ### Logic
-**Logic** describes specific behaviour of the **Entity**. Logics should know nothing about anothers, it should work only with **Components**, **Events** and **Tags**.
+**Logic** is any script with game logic. Logic describes specific behaviour of the **Entity**. Logics should know nothing about anothers, it should work only with **Components**, **Events** and **Tags**.
 
 For example, **MoveLogic** will move it using **MoveComponent** data. 
 And **InputLogic** will fill **MoveComponent Direction** field with player input.
 
-In actual version, to create logic, you should derive it from **ExtendedBehaviour**. Not the best solution, but for production it is best for me now.
+In actual framework version, to create logic, you should derive it from **ExtendedBehaviour**. Not the best solution, but for production it is best for me now.
 
 ```csharp
 using PlutoECL;
@@ -62,14 +59,14 @@ public class MoveLogic : ExtendedBehaviour
 
   protected override void Init()
   {
-    moveComponent = Entity.Components.Get<MoveComponent>();
+    moveComponent = Get<MoveComponent>();
 
     moveComponent.Speed = 2f;
   }
 
   protected override void Run()
   {
-    Entity.transform.position += moveComponent.Direction * (moveComponent.Speed * Time.deltaTime);
+    transform.position += moveComponent.Direction * (moveComponent.Speed * Time.deltaTime);
   }
 }
 ```
