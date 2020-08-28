@@ -176,8 +176,8 @@ To check state of your Entity, select its GameObject on scene and you will see a
 You also can use **RuntimeOnly** and **ReadOnly** attributes on your fields, it help to keep these fields from unwanted editing.
 
 ## More FAQ
-### Can I edit variables or entities from Inspector
-**No**. All changes should be done from code - this is place for all your game logic. If you need add some data - load it from **Scritable Object** files. 
+### Can I place public variables in Logics
+No. It breaks whole pattern and returns you to basic Unity-way coding. You should remember, that this approach first of all should be in your head. There no framework needed to use it, Pluto framework just adds some useful functions to help with this pattern implementation.
 
 ### Is Pluto ECL production-ready
 No, until there will be at least one release on GitHub. Currently it is fully experimental non-commercial project. But you can use it on your risk, all features already should work.
