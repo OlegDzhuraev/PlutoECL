@@ -15,7 +15,7 @@ Problem of Unity-way scripting is that there only MonoBehaviour, which is not sa
 
 ### Why I should use it instead of Entity Component System?
 No reasons. ECS is cool. But if you're have problems with understanding ECS or it looks too complicated to you,
-Ceres ECL is simplier and looks more like usual Unity-way scripting, so you can use it.
+Pluto ECL is simplier and looks more like usual Unity-way scripting, so you can use it.
 
 # Below partitions is obsolete and copied from Ceres ECL readme
 Will be updated in future.
