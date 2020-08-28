@@ -22,7 +22,7 @@ Will be updated siin.
 
 ## Overview
 ### Entity
-**Entity** is basic **MonoBehaviour** script (in this framework it is ExtendedBehaviour, but it is not necessarry now). It marks your object as something dynamic and includes it in gameplay run cycle. Also **Entity** is container for **Tags, Events** and some **useful methods**, which is described below.
+**Entity** is basic **MonoBehaviour** script (in this framework it is ExtendedBehaviour, but it is not necessary now). It marks your object as something dynamic and includes it in gameplay run cycle. Also **Entity** is container for **Tags, Events** and some **useful methods**, which is described below.
 
 ```csharp
 var entity = Entity.Spawn(playerPrefab);
