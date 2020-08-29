@@ -1,8 +1,8 @@
 fileFormatVersion: 2
 guid: c84c97c500bc6794f823b9b31eb352c4
 labels:
-- CeresEcl
-- CeresTemplate
+- PlutoECL
+- PlutoTemplate
 TextScriptImporter:
   externalObjects: {}
   userData: 
