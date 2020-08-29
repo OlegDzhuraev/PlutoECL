@@ -39,8 +39,8 @@ namespace PlutoECL
         protected virtual void PostInit() { }
         protected virtual void Run() { }
 
-        /// <summary> Get (with adding if dont exist) any of game components - Logics or Components. </summary>
-        public T Get<T>() where T : MonoBehaviour
+        /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
+        public T Get<T>() where T : Part
         {
             var component = GetComponent<T>();
 
@@ -50,11 +50,11 @@ namespace PlutoECL
             return component;
         }
         
-        /// <summary> Checks, is there a specified Component on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
-        public bool Have<T>() where T : MonoBehaviour => GetComponent<T>();
+        /// <summary> Checks, is there a specified Part on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
+        public bool Have<T>() where T : Part => GetComponent<T>();
 
-        /// <summary> Removes a specified MonoBehaviour from Entity. It can be component or Logic. Doesn't Affect default Unity Components - Only for Game Logic.</summary>
-        public void Delete<T>() where T : MonoBehaviour
+        /// <summary> Removes a specified Part from Entity. It can be component or Logic. Doesn't Affect default Unity Components - Only for Game Logic.</summary>
+        public void Delete<T>() where T : Part
         {
             var component = GetComponent<T>();
             
