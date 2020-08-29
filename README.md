@@ -28,17 +28,20 @@ var entity = Entity.Spawn(playerPrefab);
 var emptyEntity = Entity.Spawn();
 ```
 
-### Component
-Any derived from MonoBehaviour can be Component, if it contains **only data** of your **Entity**. For example, **MoveComponent**, which contains **Speed** and **Direction** of movement. 
-Should be no any logics code in this class.
+### Component (Part)
+Any derived from **Part** class is **Component**, if it contains **only data** of your **Entity**. For example, **MoveComponent**, which contains **Speed** and **Direction** of movement. 
+There should be no game logics in this class. But you still can place there utility methods, which calculate something, but doesn't affect gameplay etc.
 
 ```csharp
 using PlutoECL;
 
-public class MoveComponent : MonoBehaviour
+public class MoveComponent : Part
 {
   public float Speed;
   public Vector3 Direction;
+  
+  // utility method example
+  public Vector3 GetSpeedScaledDirection() => Direction * Speed;
 }
 ```
 
