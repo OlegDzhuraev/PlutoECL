@@ -1,8 +1,8 @@
-﻿using UnityEngine;
+﻿using PlutoECL;
 
 namespace #NAMESPACE# 
 {
-    class #SCRIPTNAME# : MonoBehaviour
+    class #SCRIPTNAME# : Part
     {
         // add your data here
     }

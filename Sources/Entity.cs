@@ -47,7 +47,7 @@ namespace PlutoECL
         }
         
         /// <summary> Returns Entity with specified Component. Like FindObjectOfType, but faster. </summary>
-        public new static Entity FindWith<T>() where T : Component
+        public new static Entity FindWith<T>() where T : Part
         {
             for (var i = 0; i < entities.Count; i++)
                 if (entities[i].GetComponent<T>())
@@ -56,8 +56,8 @@ namespace PlutoECL
             return null;
         }
         
-        /// <summary> Returns all Entities with specific component. Something like FindObjectsOfType, but faster and works with Ceres ECL.</summary>
-        public new static List<Entity> FindAllWith<T>() where T : Component
+        /// <summary> Returns all Entities with specific component. Something like FindObjectsOfType, but faster and works with framework components.</summary>
+        public new static List<Entity> FindAllWith<T>() where T : Part
         {
             var resultList = new List<Entity>();
             

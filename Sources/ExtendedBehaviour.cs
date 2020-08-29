@@ -92,10 +92,10 @@ namespace PlutoECL
         void OnDestroy() => behaviours.Remove(this);
 
         /// <summary> Returns Entity with specified Component. Like FindObjectOfType, but faster. </summary>
-        public Entity FindWith<T>() where T : Component => Entity.FindWith<T>();
+        public Entity FindWith<T>() where T : Part => Entity.FindWith<T>();
         
-        /// <summary> Returns all Entities with specific component. Something like FindObjectsOfType, but faster and works with Ceres ECL.</summary>
-        public List<Entity> FindAllWith<T>() where T : Component => Entity.FindAllWith<T>();
+        /// <summary> Returns all Entities with specific component. Something like FindObjectsOfType, but faster and works with framework components.</summary>
+        public List<Entity> FindAllWith<T>() where T : Part => Entity.FindAllWith<T>();
 
         /// <summary> Returns Entity with specified Tag. Like Unity Find method. </summary>
         public Entity FindWith(IntTag tag) => Entity.FindWith(tag);

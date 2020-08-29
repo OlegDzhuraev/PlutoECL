@@ -38,11 +38,11 @@ namespace PlutoECL.Misc
 
         static void DrawEmptyFieldWarning(GameObject gameObject)
         {
-            var monoBehs = gameObject.GetComponents<MonoBehaviour>();
+            var parts = gameObject.GetComponents<Part>();
                     
-            for (var i = 0; i < monoBehs.Length; i++)
+            for (var i = 0; i < parts.Length; i++)
             {
-                var type = monoBehs[i].GetType();
+                var type = parts[i].GetType();
                 
                 if (type.IsAssignableFrom(typeof(ExtendedBehaviour))) // we ignoring logics
                     continue;
@@ -55,7 +55,7 @@ namespace PlutoECL.Misc
                     if (Attribute.IsDefined(field, typeof(RuntimeOnlyAttribute)) || Attribute.IsDefined(field, typeof(ReadOnlyAttribute)))
                         continue;
 
-                    var value = field.GetValue(monoBehs[i]);
+                    var value = field.GetValue(parts[i]);
                     
                     if (value == null || value.Equals(null))
                     {

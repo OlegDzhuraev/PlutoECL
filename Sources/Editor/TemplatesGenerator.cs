@@ -10,8 +10,8 @@ namespace PlutoECL
 {
     public static class TemplatesGenerator
     {
-        [MenuItem ("Assets/Create/Pluto ECL/Component template", false, -199)]
-        static void CreateComponentTemplate() => CreateAnyFromTemplate("Component");
+        [MenuItem ("Assets/Create/Pluto ECL/Component (Part) template", false, -199)]
+        static void CreatePartTemplate() => CreateAnyFromTemplate("Part");
         
         [MenuItem ("Assets/Create/Pluto ECL/Init Logic template", false, -199)]
         static void CreateInitLogicTemplate() => CreateAnyFromTemplate("InitLogic");

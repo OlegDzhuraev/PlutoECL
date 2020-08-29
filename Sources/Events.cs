@@ -5,9 +5,8 @@ namespace PlutoECL
 {
     public sealed class Events
     {
-        /// <summary> Subscribers of event when Event was added. </summary>
         readonly Dictionary<Type, Action<Event>> subscribers = new Dictionary<Type, Action<Event>>();
-        readonly Dictionary<Action<Event>, int> addedDelegatesList = new Dictionary<Action<Event>, int>();
+        readonly Dictionary<Action<Event>, int> addedDelegates = new Dictionary<Action<Event>, int>();
 
         public void Add<T>(T newEvent) where T : Event
         {
@@ -16,35 +15,42 @@ namespace PlutoECL
             if (subscribers.ContainsKey(type))
                 subscribers[type].Invoke(newEvent);
         }
+        
+        public void Sub<T>(Action<T> action) where T : Event => 
+            Sub(typeof(T), e => action?.Invoke((T) e), action.GetHashCode());
 
-        // I really do not like these methods, looks weird 
-        public void Subscribe<T>(Action<T> action) where T : Event
+        public void Sub<T>(Action action) where T : Event => 
+            Sub(typeof(T), e => action?.Invoke(), action.GetHashCode());
+
+        void Sub(Type type, Action<Event> eventDelegate, int rawActionHash)
         {
-            var type = typeof(T);
-
-            Action<Event> eventDelegate = delegate(Event eventInstance) { action?.Invoke((T) eventInstance); };
-            
-            addedDelegatesList.Add(eventDelegate, action.GetHashCode()); // subs to same method have same hash codes, so this is easy way to check connection between method and action
-
             if (!subscribers.ContainsKey(type))
-                subscribers[type] = eventDelegate;
+                subscribers.Add(type, eventDelegate);
             else
                 subscribers[type] += eventDelegate;
+            
+            addedDelegates.Add(eventDelegate, rawActionHash); // subs to same method have same hash codes, so this is easy way to check connection between method and action
         }
-        
-        public void Unsubscribe<T>(Action<T> action) where T : Event
+
+        public void Unsub<T>(Action<T> action) where T : Event => Unsub<T>(action.GetHashCode());
+        public void Unsub<T>(Action action) where T : Event => Unsub<T>(action.GetHashCode());
+   
+        void Unsub<T>(int actionHash) where T : Event
         {
             var type = typeof(T);
-
-            foreach (var keyValuePair in addedDelegatesList)
-            {
-                if (keyValuePair.Value == action.GetHashCode())
+            
+            foreach (var keyValuePair in addedDelegates)
+                if (keyValuePair.Value == actionHash)
                 {
                     subscribers[type] -= keyValuePair.Key;
-                    addedDelegatesList.Remove(keyValuePair.Key);
+
+                    if (subscribers[type] == null)
+                        subscribers.Remove(type);
+                    
+                    addedDelegates.Remove(keyValuePair.Key);
+                    
                     break;
                 }
-            }
         }
     }
 }
