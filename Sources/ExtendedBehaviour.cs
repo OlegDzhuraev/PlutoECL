@@ -86,5 +86,11 @@ namespace PlutoECL
         
         /// <summary> Returns all Entities with specified Tag. Like Unity Find method. </summary>
         public List<Entity> FindAllWith(IntTag tag) => Entity.FindAllWith(tag);
+
+        /// <summary> Finds specified Component (Part) on level. If there several Parts of this type on level, you receive only one of them - which was created first. </summary>
+        public T FindPart<T>() where T : Part => Entity.FindPart<T>();
+        
+        /// <summary> Finds all of specified Component (Part) on level. </summary>
+        public List<T> FindAllParts<T>() where T : Part => Entity.FindAllParts<T>();
     }
 }

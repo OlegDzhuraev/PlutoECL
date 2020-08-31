@@ -9,6 +9,12 @@ namespace PlutoECL
     {
         static readonly List<Entity> entities = new List<Entity>();
 
+        public Entity(Tags tags, Events events)
+        {
+            this.tags = tags;
+            this.events = events;
+        }
+
         public Tags Tags => tags ?? (tags = new Tags());
         public Events Events => events ?? (events = new Events());
 
@@ -45,6 +51,34 @@ namespace PlutoECL
             
             if (component)
                 Destroy(component);
+        }
+
+        /// <summary> Finds specified Component (Part) on level. If there several Parts of this type on level, you receive only one of them - which was created first. </summary>
+        public static T FindPart<T>() where T : Part
+        {
+            for (var i = 0; i < entities.Count; i++)
+            {
+                var part = entities[i].Get<T>();
+                if (part)
+                    return part;
+            }
+
+            return null;
+        }       
+        
+        /// <summary> Finds all of specified Component (Part) on level. </summary>
+        public static List<T> FindAllParts<T>() where T : Part
+        {
+            var list = new List<T>();
+            
+            for (var i = 0; i < entities.Count; i++)
+            {
+                var part = entities[i].Get<T>();
+                if (part)
+                    list.Add(part);
+            }
+
+            return list;
         }
         
         /// <summary> Returns Entity with specified Tag. Like Unity Find method. </summary>
