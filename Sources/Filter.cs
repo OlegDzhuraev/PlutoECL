@@ -8,6 +8,7 @@ namespace PlutoECL
 		readonly List<Entity> entities = new List<Entity>();
 		
 		public Entity this[int index] => entities[index];
+		public int Count => entities.Count;
 		
 		public static Filter Make<T>() where T : Part
 		{
