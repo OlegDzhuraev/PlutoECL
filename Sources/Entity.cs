@@ -68,6 +68,17 @@ namespace PlutoECL
             return resultList;
         }
         
+        /// <summary> Returns filter of all Entities with specific component. Useful for global systems</summary>
+        public static Filter Filter<T>() where T : Part => PlutoECL.Filter.Make<T>();
+        
+        /// <summary> Returns filter of all Entities with specific component. Useful for global systems</summary>
+        public static Filter Filter<T, T2>() where T : Part where T2 : Part 
+            => PlutoECL.Filter.Make<T, T2>();
+        
+        /// <summary> Returns filter of all Entities with specific component. Useful for global systems</summary>
+        public static Filter Filter<T, T2, T3>() where T : Part where T2 : Part where T3 : Part 
+            => PlutoECL.Filter.Make<T, T2, T3>();
+
         /// <summary> Spawns prefab as Entity. </summary>
         public static Entity Spawn(GameObject withPrefab, Vector3 position = default, Quaternion rotation = default, Transform parent = null)
         {
