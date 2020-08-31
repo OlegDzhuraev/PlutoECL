@@ -63,8 +63,8 @@ namespace PlutoECL
 
         public bool HaveAny(params IntTag[] tags)
         {
-            foreach (var tag in tags)
-                if (Have(tag))
+            for (var i = 0; i < tags.Length; i++)
+                if (Have(tags[i]))
                     return true;
 
             return false;
@@ -72,8 +72,8 @@ namespace PlutoECL
 
         public bool HaveAll(params IntTag[] tags)
         {
-            foreach (var tag in tags)
-                if (!Have(tag))
+            for (var i = 0; i < tags.Length; i++)
+                if (!Have(tags[i]))
                     return false;
 
             return true;

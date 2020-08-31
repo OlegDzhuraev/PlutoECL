@@ -5,7 +5,7 @@ namespace PlutoECL
 {
     /// <summary> Container for all components and logics of your object. Also it is MonoBehaviour, so you can use it as the connection to the Unity API.</summary>
     [DisallowMultipleComponent]
-    public sealed class Entity : ExtendedBehaviour
+    public sealed class Entity : MonoBehaviour
     {
         static readonly List<Entity> entities = new List<Entity>();
 
@@ -24,8 +24,31 @@ namespace PlutoECL
             Destroy(gameObject);
         }
         
+        /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
+        public T Get<T>() where T : Part
+        {
+            var component = GetComponent<T>();
+
+            if (!component)
+                component = gameObject.AddComponent<T>();
+
+            return component;
+        }
+        
+        /// <summary> Checks, is there a specified Part on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
+        public bool Have<T>() where T : Part => GetComponent<T>();
+
+        /// <summary> Removes a specified Part from Entity. It can be component or Logic. Doesn't Affect default Unity Components - Only for Game Logic.</summary>
+        public void Delete<T>() where T : Part
+        {
+            var component = GetComponent<T>();
+            
+            if (component)
+                Destroy(component);
+        }
+        
         /// <summary> Returns Entity with specified Tag. Like Unity Find method. </summary>
-        public new static Entity FindWith(IntTag tag)
+        public static Entity FindWith(IntTag tag)
         {
             for (var i = 0; i < entities.Count; i++)
                 if (entities[i].Tags.Have(tag))
@@ -35,7 +58,7 @@ namespace PlutoECL
         }
         
         /// <summary> Returns all Entities with specified Tag. Like Unity Find method. </summary>
-        public new static List<Entity> FindAllWith(IntTag tag)
+        public static List<Entity> FindAllWith(IntTag tag)
         {
             var resultList = new List<Entity>();
             
@@ -47,7 +70,7 @@ namespace PlutoECL
         }
         
         /// <summary> Returns Entity with specified Component. Like FindObjectOfType, but faster. </summary>
-        public new static Entity FindWith<T>() where T : Part
+        public static Entity FindWith<T>() where T : Part
         {
             for (var i = 0; i < entities.Count; i++)
                 if (entities[i].GetComponent<T>())
@@ -57,7 +80,7 @@ namespace PlutoECL
         }
         
         /// <summary> Returns all Entities with specific component. Something like FindObjectsOfType, but faster and works with framework components.</summary>
-        public new static List<Entity> FindAllWith<T>() where T : Part
+        public static List<Entity> FindAllWith<T>() where T : Part
         {
             var resultList = new List<Entity>();
             

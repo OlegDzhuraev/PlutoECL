@@ -8,6 +8,7 @@ namespace PlutoECL
         readonly Dictionary<Type, Action<Event>> subscribers = new Dictionary<Type, Action<Event>>();
         readonly Dictionary<Action<Event>, int> addedDelegates = new Dictionary<Action<Event>, int>();
 
+        /// <summary> Method allows send Event to the entity. </summary>
         public void Add<T>(T newEvent) where T : Event
         {
             var type = newEvent.GetType();
@@ -16,6 +17,9 @@ namespace PlutoECL
                 subscribers[type].Invoke(newEvent);
         }
         
+        /// <summary> Simplier version of Add. If you do not need to pass any data to this event. </summary>
+        public void Add<T>() where T : Event, new() => Add(new T());
+
         public void Sub<T>(Action<T> action) where T : Event => 
             Sub(typeof(T), e => action?.Invoke((T) e), action.GetHashCode());
 
