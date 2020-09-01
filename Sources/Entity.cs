@@ -57,11 +57,8 @@ namespace PlutoECL
         public static T FindPart<T>() where T : Part
         {
             for (var i = 0; i < entities.Count; i++)
-            {
-                var part = entities[i].Get<T>();
-                if (part)
-                    return part;
-            }
+                if (entities[i].Have<T>())
+                    return entities[i].Get<T>();
 
             return null;
         }       
@@ -72,11 +69,8 @@ namespace PlutoECL
             var list = new List<T>();
             
             for (var i = 0; i < entities.Count; i++)
-            {
-                var part = entities[i].Get<T>();
-                if (part)
-                    list.Add(part);
-            }
+                if (entities[i].Have<T>())
+                    list.Add(entities[i].Get<T>());
 
             return list;
         }
