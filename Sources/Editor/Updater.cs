@@ -8,7 +8,7 @@ namespace PlutoECL
 {
 	public static class Updater
 	{
-		[MenuItem("Window/Pluto ECL/Update")]
+		[MenuItem("Tools/Pluto ECL/Update")]
 		static void Init() => RunUpdate();
 
 		static void RunUpdate()
@@ -49,7 +49,7 @@ namespace PlutoECL
 				for (var i = 0; i < lockFileLength; i++)
 					sr.WriteLine(lines[i]);
 
-			Debug.Log("Updating Pluto...");
+			Debug.Log("Pluto updated successfully.");
 
 			AssetDatabase.Refresh(ImportAssetOptions.Default);
 		}
