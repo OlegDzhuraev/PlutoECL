@@ -45,7 +45,7 @@ namespace PlutoECL
         /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
         public Part Get(Type partType)
         {
-            if (!partType.IsAssignableFrom(typeof(Part)))
+            if (!typeof(Part).IsAssignableFrom(partType))
                 return null;
             
             var component = GetComponent(partType);
