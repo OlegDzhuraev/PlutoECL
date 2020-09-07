@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace PlutoECL
@@ -68,19 +69,16 @@ namespace PlutoECL
         
         /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
         public T Get<T>() where T : Part => Entity.Get<T>();
-        
-        public T Get<T>(T trickedType) where T : Part => Get<T>();
+
+        /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
+        public Part Get(Type partType) => Entity.Get(partType);
 
         /// <summary> Checks, is there a specified Part on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
         public bool Have<T>() where T : Part => Entity.Have<T>();
-        
-        public bool Have<T>(T trickedType) where T : Part => Have<T>();
 
         /// <summary> Removes a specified Part from Entity. It can be component or Logic. Doesn't Affect default Unity Components - Only for Game Logic.</summary>
         public void Delete<T>() where T : Part => Entity.Delete<T>();
-        
-        public void Delete<T>(T trickedType) where T : Part => Delete<T>();
-        
+
         /// <summary> Returns Entity with specified Component. Like FindObjectOfType, but faster. </summary>
         public Entity FindWith<T>() where T : Part => Entity.FindWith<T>();
         
