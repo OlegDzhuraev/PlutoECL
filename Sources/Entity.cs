@@ -40,10 +40,14 @@ namespace PlutoECL
 
             return component;
         }
-        
+
+        public T Get<T>(T trickedType) where T : Part => Get<T>();
+
         /// <summary> Checks, is there a specified Part on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
         public bool Have<T>() where T : Part => GetComponent<T>();
-
+        
+        public bool Have<T>(T trickedType) where T : Part => Have<T>();
+        
         /// <summary> Removes a specified Part from Entity. It can be component or Logic. Doesn't Affect default Unity Components - Only for Game Logic.</summary>
         public void Delete<T>() where T : Part
         {
@@ -52,7 +56,9 @@ namespace PlutoECL
             if (component)
                 Destroy(component);
         }
-
+        
+        public void Delete<T>(T trickedType) where T : Part => Delete<T>();
+        
         /// <summary> Finds specified Component (Part) on level. If there several Parts of this type on level, you receive only one of them - which was created first. </summary>
         public static T FindPart<T>() where T : Part
         {
