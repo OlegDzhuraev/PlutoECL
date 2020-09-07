@@ -60,6 +60,13 @@ namespace PlutoECL
         }
 
         public bool Have(IntTag tag) => addedTags.ContainsKey(tag);
+        
+        public int Count(IntTag tag)
+        {
+            addedTags.TryGetValue(tag, out var count);
+
+            return count;
+        }
 
         public bool HaveAny(params IntTag[] tags)
         {
