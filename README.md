@@ -182,6 +182,9 @@ You also can use **RuntimeOnly** and **ReadOnly** attributes on your fields, it 
 ### Can I place public variables in Logics
 No. It breaks whole pattern and returns you to basic Unity-way coding. You should remember, that this approach first of all should be in your head. There no framework needed to use it, Pluto framework just adds some useful functions to help with this pattern implementation.
 
+### How I can use OnTriggerEnter, for example
+Like in classic **MonoBehaviour**, just do it from **Logic** code. Also you can use interfaces like **IPointerClickHandler** with your **Logics** too.
+
 ### Is Pluto ECL production-ready
 No, until there will be at least one release on GitHub. Currently it is fully experimental non-commercial project. But you can use it on your risk, all features already should work.
 
