@@ -110,7 +110,7 @@ Removing tag (only one, if there stacked tags) from the entity:
 Entity.Tags.Remove(Tag.CustomTag);
 ```
 
-New tags version is a simple integer in code, so if you want see your Tags names from enum in Entity debug, you need specify your enum type in **CeresSettings** in ECL Launcher script:
+New tags version is a simple integer in code, so if you want see your Tags names from enum in Entity debug, you need specify your enum type in **PlutoSettings** in ECL Launcher script:
 ```csharp
 PlutoSettings.Instance.TagsEnum = typeof(Tag);
 ```
@@ -150,7 +150,7 @@ Entity.Events.Unsubscribe<ColliderHitEvent>(OnHit);
 Current Events version is not finished and can be unstable, but all tests passed fine, so I added it to the repo.
 
 ### Launcher
-To make it all work, you need entry point, some classic **MonoBehaviour** script. To do this correct, create your new script, name it, for example, **MyLauncher**, and derive from Ceres **Launcher** class. Next, you need to override **StartAction** method and add there your init logic.
+To make it all work, you need entry point, some classic **MonoBehaviour** script. To do this correct, create your new script, name it, for example, **MyLauncher**, and derive from Pluto **Launcher** class. Next, you need to override **StartAction** method and add there your init logic.
 
 ```csharp
 using PlutoECL;
@@ -164,7 +164,7 @@ public class MyLauncher : Launcher
 }
 ```
 
-Base **Launcher** class handles all entities update, so there only 1 MonoBehaviour Update for **all** Entities Logics. For some unknown reasons, in Unity it increases game FPS. So do **not** make **Update** method in your Launcher, it can override Ceres one. And, yes, you don't need it in any case.
+Base **Launcher** class handles all entities update, so there only 1 MonoBehaviour Update for **all** Entities Logics. For some unknown reasons, in Unity it increases game FPS. So do **not** make **Update** method in your Launcher, it can override Pluto one. And, yes, you don't need it in any case.
 
 ### Templates
 You can create each of these classes using templates. Click **RMB** in **Project Window** and open submenu **Pluto ECL**. There will be all actual templates. 
@@ -174,7 +174,7 @@ It will generate script in root namespace, which you can change in **Editor Sett
 For template generator idea thanks to LeoECS, some used things came from its code.
 
 ## Debug
-To check state of your Entity, select its GameObject on scene and you will see all Tags, Components and Logics, added to the entity with their parameters. In your Components you can see all parameters.
+To check state of your **Entity**, select its **GameObject** on scene and you will see all Tags, Components and Logics, added to the entity with their parameters. In your Components you can see and edit all parameters.
 
 You also can use **RuntimeOnly** and **ReadOnly** attributes on your fields, it help to keep these fields from unwanted editing.
 
@@ -187,9 +187,6 @@ Like in classic **MonoBehaviour**, just do it from **Logic** code. Also you can 
 
 ### Is Pluto ECL production-ready
 No, until there will be at least one release on GitHub. Currently it is fully experimental non-commercial project. But you can use it on your risk, all features already should work.
-
-### Why it is named Pluto?
-Mine previous ECL implementation was named Ceres just because I had no ideas how to name it and I like space. This is my another vision of this pattern, but now it not lightweight as Ceres. So, Pluto. :D
 
 ## Examples
 Example will be added as separated repo soon.
@@ -205,3 +202,10 @@ Leopotam for LeoECS https://github.com/Leopotam/ecs
 Pixeye for Actors https://github.com/PixeyeHQ/actors.unity
 
 Inspired me to use ECS and think more about different coding architecture patterns. :)
+
+## Donate
+You can support development using cryptocurrency :)
+
+**Zilliqa $ZIL (ZIL):** zil1p6j0js2d5dat36n9zpp4g9xj776vghukkaa32l
+
+**Stellar Lumens (XLM):** GBY4Q6AKWLQIOT37D3X643LLEVZA7WRWBUU4RCVEG6PN57QCIWT7LRIX
