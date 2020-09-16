@@ -60,7 +60,7 @@ namespace PlutoECL
             
             newBehaviours.Clear();
 
-            for (var i = 0; i < behaviours.Count; i++)
+            for (var i = behaviours.Count - 1; i >= 0; i--)
                 if (behaviours[i].enabled)
                     behaviours[i].Run();
         }
