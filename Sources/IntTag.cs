@@ -2,7 +2,7 @@
 
 namespace PlutoECL
 {
-    public struct IntTag
+    public readonly struct IntTag
     {
         readonly int value;
         

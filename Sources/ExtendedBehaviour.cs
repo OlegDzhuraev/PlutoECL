@@ -72,7 +72,10 @@ namespace PlutoECL
 
         /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
         public Part Get(Type partType) => Entity.Get(partType);
-
+        
+        /// <summary> Returns required game Component (Part) only if it exist on Entity. </summary>
+        public T GetIfExist<T>() where T : Part => Entity.GetIfExist<T>();
+        
         /// <summary> Checks, is there a specified Part on Entity. Argument is MonoBehaviour, so it can be used only for Components and Logics - doesn't affects default Unity Components, only for game logic.</summary>
         public bool Have<T>() where T : Part => Entity.Have<T>();
 

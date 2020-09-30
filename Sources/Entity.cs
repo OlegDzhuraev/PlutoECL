@@ -10,7 +10,7 @@ namespace PlutoECL
     {
         static readonly List<Entity> entities = new List<Entity>();
 
-        public Entity(Tags tags, Events events)
+        public Entity(Tags tags, Events events) // todo check why there constructor like this is needed? I do not remember I added it.
         {
             this.tags = tags;
             this.events = events;
@@ -31,7 +31,7 @@ namespace PlutoECL
             Destroy(gameObject);
         }
         
-        /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
+        /// <summary> Returns required game Component (Part) with adding if dont exist). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
         public T Get<T>() where T : Part
         {
             var component = GetComponent<T>();
@@ -42,6 +42,9 @@ namespace PlutoECL
             return component;
         }
         
+        /// <summary> Returns required game Component (Part) only if it exist on Entity. </summary>
+        public T GetIfExist<T>() where T : Part => GetComponent<T>();
+
         /// <summary> Get (with adding if dont exist) any of game Components (Parts). If you want add Logic - do it from inspector before game run. If logic should not work from start - make Component with bool flag. Don't add Logics in runtime</summary>
         public Part Get(Type partType)
         {
